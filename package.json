@@ -1,0 +1,45 @@
+{
+  "name": "itp-stackoverflowlite",
+  "version": "1.0.0",
+  "description": "The StackOverflow Light project for In The Pocket :)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aenache99/itp-stackoverflowlite.git"
+  },
+  "keywords": [
+    "inthepocket",
+    "stackoverflow",
+    "express.js",
+    "postgres",
+    "mongo",
+    "serverless",
+    "auth0",
+    "socket.io",
+    "redit",
+    "docker",
+    "k8s",
+    "gcp",
+    "git",
+    "elasticsearch",
+    "kibana",
+    "jenkins",
+    "selenium",
+    "react"
+  ],
+  "author": "Alexandru Gabriel Enache",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aenache99/itp-stackoverflowlite/issues"
+  },
+  "homepage": "https://github.com/aenache99/itp-stackoverflowlite#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.2",
+    "pg": "^8.11.3"
+  }
+}
