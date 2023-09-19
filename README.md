@@ -1,6 +1,24 @@
-# StackOverflow Light Backend
+# StackOverflow Light Project
 
-This project serves as the backend for the StackOverflow Light application.
+## Project Overview
+
+This is a Stack Overflow clone project, as of now it is a work in progress.
+
+It is built using the MERN stack as its core. The following full stack is as follows:
+
+1. Databases: RDBMS (Serverless Postgres) and NoSQL (Serverless MongoDB)
+2. Backend: Node.js, Express.js
+3. Frontend: React.js, Apollo Client, and Bootstrap
+4. Authentication: Auth0
+5. Realtime updates: Socket.io
+6. Containerization and Orchestration: Docker and Kubernetes
+7. Deployment: Google Cloud Platform
+8. Version Control: Git and GitHub
+9. Caching: Redis
+10. Metrics: ElasticSearch and Kibana
+11. CI/CD: Jenkins
+12. Testing: Jest and Selenium
+
 
 ## Project Setup
 
