@@ -1,14 +1,15 @@
-# StackOverflow Light Project
+# StackOverflow Light Project (WIP as of now)
 
 ## Project Overview
+
 
 This is a Stack Overflow clone project, as of now it is a work in progress.
 
 It is built using the MERN stack as its core. The following full stack is as follows:
 
-1. Databases: RDBMS (Serverless Postgres) and NoSQL (Serverless MongoDB)
+1. Databases: NoSQL (Serverless MongoDB) (RDBMS (Serverless Postgres) was dropped)
 2. Backend: Node.js, Express.js
-3. Frontend: React.js, Apollo Client, and Bootstrap
+3. Frontend: React.js
 4. Authentication: Auth0
 5. Realtime updates: Socket.io
 6. Containerization and Orchestration: Docker and Kubernetes
@@ -20,11 +21,56 @@ It is built using the MERN stack as its core. The following full stack is as fol
 12. Testing: Jest and Selenium
 
 
-## Project Setup
+## How to Run This Project Locally
+To run this project on your local machine, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/aenache99/itp-stackoverflowlite`
-2. Navigate to the project directory: `cd stackoverflow-light-backend`
-3. Install dependencies: `npm install`
-4. Start the server: `npm start`
+- Clone the repository to your local machine:
+```bash
+git clone https://github.com/aenache99/itp-stackoverflowlite.git
 
-The server should now be running on [http://localhost:3000](http://localhost:3000).
+```
+- Navigate to the project directory:
+```bash
+cd stack-overflow-clone
+
+```
+#### Install frontend dependencies
+- Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+- Install dependencies:
+```bash
+npm install
+
+```
+
+#### Install backend dependencies
+- Navigate to the backend directory:
+```bash
+cd backend
+
+```
+
+- Install dependencies:
+```bash
+npm install
+
+```
+
+### Usage
+- Start the backend server
+```bash
+cd backend
+npm start
+
+```
+
+
+- Start the frontend development server
+```bash
+cd frontend
+npm run dev
+
+```

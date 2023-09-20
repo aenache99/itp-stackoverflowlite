@@ -1,0 +1,42 @@
+footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #dee2e6;
+    flex-wrap: wrap;
+}
+
+.column, .metrics-column {
+    flex: 1;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.column h3, .metrics-column h3 {
+    color: #191825;
+    margin-bottom: 10px;
+}
+
+.column a {
+    color: #007acc;
+    text-decoration: none;
+    padding: 2px 0;
+    transition: background 0.3s;
+}
+
+.column a:hover {
+    background: #e1ecf4;
+    border-radius: 2px;
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+}
+
+strong {
+    margin-bottom: 5px;
+}
