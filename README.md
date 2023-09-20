@@ -5,6 +5,11 @@
 
 This is a Stack Overflow clone project, as of now it is a work in progress.
 
+Everything is pushed to Git except course for the environment variables. The environment variables are stored in a .env file in the backend directory. The .env file is not pushed to Git until the project is completed.
+
+YouTube presentation link: TBA
+
+
 It is built using the MERN stack as its core. The following full stack is as follows:
 
 1. Databases: NoSQL (Serverless MongoDB) (RDBMS (Serverless Postgres) was dropped)
