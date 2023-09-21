@@ -36,13 +36,13 @@ git clone https://github.com/aenache99/itp-stackoverflowlite.git
 ```
 - Navigate to the project directory:
 ```bash
-cd stack-overflow-clone
+cd itp-stackoverflowlite
 
 ```
 #### Install frontend dependencies
 - Navigate to the frontend directory:
 ```bash
-cd frontend
+cd client
 ```
 
 - Install dependencies:
@@ -54,7 +54,7 @@ npm install
 #### Install backend dependencies
 - Navigate to the backend directory:
 ```bash
-cd backend
+cd server
 
 ```
 
@@ -67,7 +67,7 @@ npm install
 ### Usage
 - Start the backend server
 ```bash
-cd backend
+cd server
 npm start
 
 ```
@@ -75,7 +75,7 @@ npm start
 
 - Start the frontend development server
 ```bash
-cd frontend
-npm run dev
+cd client
+npm start
 
 ```
