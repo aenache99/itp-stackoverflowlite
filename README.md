@@ -12,9 +12,9 @@ YouTube presentation link: TBA
 
 It is built using the MERN stack as its core. The following full stack is as follows:
 
-1. Databases: NoSQL (Serverless MongoDB) (RDBMS (Serverless Postgres) was dropped)
+1. Databases: NoSQL (Serverless MongoDB)
 2. Backend: Node.js, Express.js
-3. Frontend: React.js
+3. Frontend: React.js, Axios, React Router
 4. Authentication: Auth0
 5. Realtime updates: Socket.io
 6. Containerization and Orchestration: Docker and Kubernetes
