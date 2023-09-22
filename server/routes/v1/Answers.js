@@ -1,7 +1,7 @@
 import express from "express";
 
-import { postAnswer, deleteAnswer, voteAnswer } from "../controllers/Answers.js";
-import auth from "../middleware/auth.js";
+import { postAnswer, deleteAnswer, voteAnswer } from "../../controllers/Answers.js";
+import auth from "../../middleware/auth.js";
 
 const router = express.Router();
 

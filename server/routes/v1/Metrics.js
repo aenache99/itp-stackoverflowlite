@@ -1,5 +1,5 @@
 import express from "express";
-import {getMetrics} from "../controllers/Metrics.js";
+import {getMetrics} from "../../controllers/Metrics.js";
 
 const router = express.Router();
 

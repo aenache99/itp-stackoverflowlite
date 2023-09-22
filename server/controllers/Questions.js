@@ -25,7 +25,7 @@ export const getAllQuestions = async (req, res) => {
 
 export const getPopularQuestions = async (req, res) => {
     try {
-        const popularQuestions = await Question.find().sort({ noOfAnswers: -1 }).limit(10);
+        const popularQuestions = await Questions.find().sort({ noOfAnswers: -1 }).limit(10);
         res.status(200).json(popularQuestions);
     } catch (error) {
         res.status(500).json({ message: "Server Error" });

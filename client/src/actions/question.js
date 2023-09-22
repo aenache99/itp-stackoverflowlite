@@ -20,6 +20,15 @@ export const fetchAllQuestions = () => async (disptach) => {
     }
 };
 
+export const fetchPopularQuestions = () => async (dispatch) => {
+    try {
+        const { data } = await api.fetchPopularQuestions(); // Make sure you have this API function.
+        dispatch({ type: 'FETCH_POPULAR', payload: data });
+    } catch (error) {
+        console.error("Failed to fetch popular questions:", error);
+    }
+};
+
 export const deleteQuestion = (id, navigate) => async (dispatch) => {
     try {
         await api.deleteQuestion(id);

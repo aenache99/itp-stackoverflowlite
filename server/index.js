@@ -3,10 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 //import redis from 'redis';
 
-import userRoutes from "./routes/users.js";
-import questionRoutes from "./routes/Questions.js";
-import answerRoutes from "./routes/Answers.js";
-import metricsRoutes from "./routes/Metrics.js";
+
+import userRoutes from "./routes/v1/users.js";
+import questionRoutes from "./routes/v1/Questions.js";
+import answerRoutes from "./routes/v1/Answers.js";
+import metricsRoutes from "./routes/v1/Metrics.js";
 import connectDB from "./database.js";
 
 dotenv.config();

@@ -14,6 +14,7 @@ const Questions = ({ question }) => {
     };
 
 
+
     return (
         <div className="display-question-container">
             <div className="display-votes-ans">
