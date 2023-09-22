@@ -51,3 +51,61 @@ export const deleteAnswer = async (req, res) => {
         res.status(405).json(error);
     }
 };
+export const voteAnswer = async (req, res) => {
+    const { questionId, answerId, value } = req.body;
+    const userId = req.userId;
+
+    if (!mongoose.Types.ObjectId.isValid(questionId)) {
+        return res.status(404).send("question unavailable...");
+    }
+
+    try {
+        const question = await Questions.findById(questionId);
+        if (!question) {
+            return res.status(404).send("Question not found...");
+        }
+
+        // Find the answer within the question's answers
+        const answer = question.answer.id(answerId);
+        if (!answer) {
+            return res.status(404).send("Answer not found...");
+        }
+
+        // Check if user already upvoted or downvoted
+        const hasUpvoted = answer.upVote.includes(String(userId));
+        const hasDownvoted = answer.downVote.includes(String(userId));
+
+        // Process the upvote
+        if (value === "upVote") {
+            if (hasUpvoted) {
+                answer.upVote.pull(userId); // Remove upvote if already upvoted
+            } else {
+                answer.upVote.push(userId); // Add upvote if not upvoted
+                if (hasDownvoted) {
+                    answer.downVote.pull(userId); // Remove downvote if user changes mind
+                }
+            }
+        }
+        // Process the downvote
+        else if (value === "downVote") {
+            if (hasDownvoted) {
+                answer.downVote.pull(userId); // Remove downvote if already downvoted
+            } else {
+                answer.downVote.push(userId); // Add downvote if not downvoted
+                if (hasUpvoted) {
+                    answer.upVote.pull(userId); // Remove upvote if user changes mind
+                }
+            }
+        }
+
+        // Save the modified question document
+        await question.save();
+        res.status(200).json({ message: "voted successfully on the answer..." });
+
+    } catch (error) {
+        console.error("Error while voting:", error);  // Log the error
+        res.status(404).json({ message: "voting failed for the answer..." });
+    }
+};
+
+

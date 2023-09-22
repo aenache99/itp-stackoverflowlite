@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+//import redis from 'redis';
 
 import userRoutes from "./routes/users.js";
 import questionRoutes from "./routes/Questions.js";
 import answerRoutes from "./routes/Answers.js";
+import metricsRoutes from "./routes/Metrics.js";
 import connectDB from "./database.js";
 
 dotenv.config();
@@ -22,6 +24,7 @@ app.get('/', (req, res) => {
 app.use("/user", userRoutes);
 app.use("/questions", questionRoutes);
 app.use("/answer", answerRoutes);
+app.use("/metrics", metricsRoutes);
 
 const PORT = process.env.PORT || 5000
 const DATABASE_URL = process.env.CONNECTION_URL

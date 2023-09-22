@@ -23,6 +23,15 @@ export const getAllQuestions = async (req, res) => {
     }
 };
 
+export const getPopularQuestions = async (req, res) => {
+    try {
+        const popularQuestions = await Question.find().sort({ noOfAnswers: -1 }).limit(10);
+        res.status(200).json(popularQuestions);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
 export const deleteQuestion = async (req, res) => {
     const { id: _id } = req.params;
 

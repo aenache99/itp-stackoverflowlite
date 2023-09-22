@@ -13,6 +13,7 @@ const Questions = ({ question }) => {
         return title;
     };
 
+
     return (
         <div className="display-question-container">
             <div className="display-votes-ans">

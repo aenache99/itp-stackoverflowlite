@@ -16,6 +16,7 @@ export const signUp = (authData) => API.post("/user/signup", authData);
 export const postQuestion = (questionData) =>
     API.post("/questions/Ask", questionData);
 export const getAllQuestions = () => API.get("/questions/get");
+export const getPopularQuestions = () => API.get("/questions/get");
 export const deleteQuestion = (id) => API.delete(`/questions/delete/${id}`);
 export const voteQuestion = (id, value) =>
     API.patch(`/questions/vote/${id}`, { value });
@@ -28,3 +29,6 @@ export const deleteAnswer = (id, answerId, noOfAnswers) =>
 export const getAllUsers = () => API.get("/user/getAllUsers");
 export const updateProfile = (id, updateData) =>
     API.patch(`/user/update/${id}`, updateData);
+export const voteAnswer = (questionId, answerId, value) =>
+    API.patch(`/questions/${questionId}/answer/${answerId}/${value}`);
+

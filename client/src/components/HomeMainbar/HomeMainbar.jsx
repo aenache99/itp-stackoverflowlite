@@ -23,7 +23,7 @@ const HomeMainbar = () => {
         }
     };
 
-    const renderHeaderTitle = () => pathname === "/" ? "Top Questions" : "All Questions";
+    const renderHeaderTitle = () => pathname === "/" ? "Most Popular Questions" : "All Questions";
     const renderQuestionsContent = () => {
         if (!questionsData) return <h1>Loading...</h1>;
 

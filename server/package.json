@@ -44,6 +44,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.4.0",
     "mongoose": "^7.1.0",
+    "node-redis": "^0.1.7",
     "nodemon": "^2.0.22",
     "socket.io": "^4.7.2"
   }
