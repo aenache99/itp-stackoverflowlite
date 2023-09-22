@@ -35,7 +35,7 @@ PREREQUISITES:
 
 - Create a MongoDB Atlas account and create a free M0 cluster. Then create a database user and get the connection string. You can follow this tutorial: https://www.youtube.com/watch?v=rPqRyYJmx2g
 - Create an Auth0 account and create a new application. Then get the client ID and client secret. You can follow this tutorial: https://www.youtube.com/watch?v=Ou2f-cnL9S4
-
+- Download and install Docker Desktop: https://www.docker.com/products/docker-desktop
 
 1. Clone the repository to your local machine:
 ```bash
