@@ -7,6 +7,8 @@ This is a Stack Overflow clone project, as of now it is a work in progress.
 
 Everything is pushed to Git except course for the environment variables. The environment variables are stored in a .env file in the backend directory. The .env file is not pushed to Git until the project is completed.
 
+GCP link: TBA
+
 YouTube presentation link: TBA
 
 
@@ -29,53 +31,38 @@ It is built using the MERN stack as its core. The following full stack is as fol
 ## How to Run This Project Locally
 To run this project on your local machine, follow these steps:
 
-- Clone the repository to your local machine:
+PREREQUISITES:
+
+- Create a MongoDB Atlas account and create a free M0 cluster. Then create a database user and get the connection string. You can follow this tutorial: https://www.youtube.com/watch?v=rPqRyYJmx2g
+- Create an Auth0 account and create a new application. Then get the client ID and client secret. You can follow this tutorial: https://www.youtube.com/watch?v=Ou2f-cnL9S4
+
+
+1. Clone the repository to your local machine:
 ```bash
 git clone https://github.com/aenache99/itp-stackoverflowlite.git
-
 ```
-- Navigate to the project directory:
+2. Navigate to the project directory:
 ```bash
 cd itp-stackoverflowlite
-
 ```
-#### Install frontend dependencies
-- Navigate to the frontend directory:
+3. Create a .env file in the server directory and add the following environment variables:
 ```bash
-cd client
+MONGO_URI=<your MongoDB connection string>
+AUTH0_CLIENT_ID=<your Auth0 client ID>
+AUTH0_CLIENT_SECRET=<your Auth0 client secret>
+AUTH0_DOMAIN=<your Auth0 domain>
 ```
-
-- Install dependencies:
+4. If it is the first time running the project, run the following command:
 ```bash
-npm install
-
+docker-compose up --build
 ```
-
-#### Install backend dependencies
-- Navigate to the backend directory:
+5. After the first time, run the following command:
 ```bash
-cd server
-
+docker-compose up 
 ```
+6. Navigate to http://localhost:3000/ to view the project.
 
-- Install dependencies:
+Once you are done, you can stop the project by pressing CTRL+C in the terminal window where you ran the docker-compose command. Then run the following command to stop the containers:
 ```bash
-npm install
-
-```
-
-### Usage
-- Start the backend server
-```bash
-cd server
-npm start
-
-```
-
-
-- Start the frontend development server
-```bash
-cd client
-npm start
-
+docker-compose down
 ```
