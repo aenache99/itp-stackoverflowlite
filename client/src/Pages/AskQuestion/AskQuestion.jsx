@@ -6,86 +6,98 @@ import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
 
 const AskQuestion = () => {
-    const [question, setQuestion] = useState({
-        title: "",
-        body: "",
-        tags: [],
-    });
+    const [questionTitle, setQuestionTitle] = useState("");
+    const [questionBody, setQuestionBody] = useState("");
+    const [questionTags, setQuestionTags] = useState("");
 
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.currentUserReducer);
+    const User = useSelector((state) => state.currentUserReducer);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (!user) {
-            alert("You need to login to ask a question.");
-            return;
-        }
-
-        const { title, body, tags } = question;
-        if (title && body && tags.length) {
-            dispatch(askQuestion({ ...question, userPosted: user.result.name }, navigate));
-        } else {
-            alert("Please enter all the fields.");
-        }
+        if (User) {
+            if (questionTitle && questionBody && questionTags) {
+                dispatch(
+                    askQuestion(
+                        {
+                            questionTitle,
+                            questionBody,
+                            questionTags,
+                            userPosted: User.result.name,
+                        },
+                        navigate
+                    )
+                );
+            } else alert("Please enter all the fields.");
+        } else alert("You need to login to ask a question.");
     };
 
-    const handleChange = (field, value) => {
-        setQuestion((prev) => ({ ...prev, [field]: value }));
-    };
-
-    const handleKeyPress = (e) => {
+    const handleEnter = (e) => {
         if (e.key === "Enter") {
-            handleChange('body', question.body + "\n");
+            setQuestionBody(questionBody + "\n");
         }
     };
-
     return (
         <div className="ask-question">
             <div className="ask-ques-container">
                 <h1>Ask a public Question</h1>
                 <form onSubmit={handleSubmit}>
-                    <InputField
-                        label="Title"
-                        instruction="Be specific and imagine you’re asking a question to another person:"
-                        placeholder="e.g. How to count the number of objects in a JavaScript array?"
-                        onChange={(e) => handleChange('title', e.target.value)}
+                    <div className="ask-form-container">
+                        <label htmlFor="ask-ques-title">
+                            <h4>Title</h4>
+                            <p>
+                                Be specific and imagine you’re asking a question to another
+                                person:
+                            </p>
+                            <input
+                                type="text"
+                                id="ask-ques-title"
+                                onChange={(e) => {
+                                    setQuestionTitle(e.target.value);
+                                }}
+                                placeholder="e.g. How to count the number of objects in a JavaScript array?"
+                            />
+                        </label>
+                        <label htmlFor="ask-ques-body">
+                            <h4>Body</h4>
+                            <p>
+                                Include all the information someone would need to answer your
+                                question:
+                            </p>
+                            <textarea
+                                name=""
+                                id="ask-ques-body"
+                                onChange={(e) => {
+                                    setQuestionBody(e.target.value);
+                                }}
+                                cols="30"
+                                rows="10"
+                                onKeyPress={handleEnter}
+                            ></textarea>
+                        </label>
+                        <label htmlFor="ask-ques-tags">
+                            <h4>Tags</h4>
+                            <p>Add up to 5 tags to describe what your question is about:</p>
+                            <input
+                                type="text"
+                                id="ask-ques-tags"
+                                onChange={(e) => {
+                                    setQuestionTags(e.target.value.split(" "));
+                                }}
+                                placeholder="e.g. (xml typescript wordpress)"
+                            />
+                        </label>
+                    </div>
+                    <input
+                        type="submit"
+                        value="Post Question"
+                        className="review-btn"
                     />
-                    <TextAreaField
-                        label="Body"
-                        instruction="Include all the information someone would need to answer your question:"
-                        onKeyPress={handleKeyPress}
-                        onChange={(e) => handleChange('body', e.target.value)}
-                    />
-                    <InputField
-                        label="Tags"
-                        instruction="Add up to 5 tags to describe what your question is about:"
-                        placeholder="e.g. (xml typescript wordpress)"
-                        onChange={(e) => handleChange('tags', e.target.value.split(" "))}
-                    />
-                    <input type="submit" value="Post Question" className="review-btn" />
                 </form>
             </div>
         </div>
     );
 };
-
-const InputField = ({ label, instruction, placeholder, onChange }) => (
-    <label>
-        <h4>{label}</h4>
-        <p>{instruction}</p>
-        <input type="text" placeholder={placeholder} onChange={onChange} />
-    </label>
-);
-
-const TextAreaField = ({ label, instruction, onChange, onKeyPress }) => (
-    <label>
-        <h4>{label}</h4>
-        <p>{instruction}</p>
-        <textarea cols="30" rows="10" onChange={onChange} onKeyPress={onKeyPress}></textarea>
-    </label>
-);
 
 export default AskQuestion;
