@@ -7,14 +7,7 @@ import { deleteAnswer, voteAnswer } from "../../actions/question";
 import upvote from "../../assets/sort-up.svg";
 import downvote from "../../assets/sort-down.svg";
 
-const Answer = ({
-                    ans,
-                    handleShare,
-                    handleDelete,
-                    handleUpVote,
-                    handleDownVote,
-                    User,
-                }) => (
+const Answer = ({ ans, handleShare, handleDelete, handleVote, User }) => (
     <div className="display-ans" key={ans._id}>
         <div className="question-details-container-2">
             <div className="question-votes">
@@ -23,7 +16,7 @@ const Answer = ({
                     alt="Upvote"
                     width="18"
                     className="votes-icon"
-                    onClick={() => handleUpVote(ans._id)}
+                    onClick={() => handleVote(ans._id, "upVote")}
                 />
                 <p className="votes-count">{ans.upVote.length - ans.downVote.length}</p>
                 <img
@@ -31,7 +24,7 @@ const Answer = ({
                     alt="Downvote"
                     width="18"
                     className="votes-icon"
-                    onClick={() => handleDownVote(ans._id)}
+                    onClick={() => handleVote(ans._id, "downVote")}
                 />
             </div>
             <div style={{ width: "100%" }}>
@@ -99,8 +92,7 @@ const DisplayAnswer = ({ question, handleShare }) => {
                     ans={ans}
                     handleShare={handleShare}
                     handleDelete={handleDelete}
-                    handleUpVote={() => handleVote(ans._id, "upVote")}
-                    handleDownVote={() => handleVote(ans._id, "downVote")}
+                    handleVote={handleVote}
                     User={User}
                     key={ans._id}
                 />
