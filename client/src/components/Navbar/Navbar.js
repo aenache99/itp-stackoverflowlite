@@ -40,12 +40,19 @@ const Navbar = ({ handleSlideIn }) => {
     );
 
     useEffect(() => {
+        const handleLogout = () => {
+            dispatch({ type: "LOGOUT" });
+            navigate("/");
+            dispatch(setCurrentUser(null));
+        };
+
         if (token) {
             const decodedToken = decode(token);
             if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
         }
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
-    }, [token, dispatch]);
+    }, [token, dispatch, navigate]);
+
 
     return (
         <nav className="main-nav">
