@@ -3,17 +3,12 @@ import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import copy from "copy-to-clipboard";
-
 import upvote from "../../assets/sort-up.svg";
 import downvote from "../../assets/sort-down.svg";
 import "./Questions.css";
 import Avatar from "../../components/Avatar/Avatar";
 import DisplayAnswer from "./DisplayAnswer";
-import {
-    postAnswer,
-    deleteQuestion,
-    voteQuestion,
-} from "../../actions/question";
+import { postAnswer, deleteQuestion, voteQuestion } from "../../actions/question";
 
 const QuestionsDetails = () => {
     const { id } = useParams();
@@ -57,21 +52,12 @@ const QuestionsDetails = () => {
         dispatch(deleteQuestion(id, Navigate));
     };
 
-    const handleUpVote = () => {
+    const handleVote = (value) => {
         if (User === null) {
-            alert("You need to login to upvote a question.");
+            alert(`You need to login to ${value === "upVote" ? "upvote" : "downvote"} a question.`);
             Navigate("/Auth");
         } else {
-            dispatch(voteQuestion(id, "upVote"));
-        }
-    };
-
-    const handleDownVote = () => {
-        if (User === null) {
-            alert("You need to login to downvote a question.");
-            Navigate("/Auth");
-        } else {
-            dispatch(voteQuestion(id, "downVote"));
+            dispatch(voteQuestion(id, value));
         }
     };
 
@@ -94,7 +80,7 @@ const QuestionsDetails = () => {
                                                 alt=""
                                                 width="18"
                                                 className="votes-icon"
-                                                onClick={handleUpVote}
+                                                onClick={() => handleVote("upVote")}
                                             />
                                             <p>{question.upVote.length - question.downVote.length}</p>
                                             <img
@@ -102,7 +88,7 @@ const QuestionsDetails = () => {
                                                 alt=""
                                                 width="18"
                                                 className="votes-icon"
-                                                onClick={handleDownVote}
+                                                onClick={() => handleVote("downVote")}
                                             />
                                         </div>
                                         <div style={{ width: "100%" }}>
@@ -162,14 +148,14 @@ const QuestionsDetails = () => {
                                             handlePostAns(e, question.answer.length);
                                         }}
                                     >
-                                        <textarea
-                                            name=""
-                                            id=""
-                                            cols="30"
-                                            rows="10"
-                                            value={Answer}
-                                            onChange={(e) => setAnswer(e.target.value)}
-                                        ></textarea>
+                    <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="10"
+                        value={Answer}
+                        onChange={(e) => setAnswer(e.target.value)}
+                    ></textarea>
                                         <br />
                                         <input
                                             type="submit"
