@@ -18,7 +18,6 @@ import {
 const QuestionsDetails = () => {
     const { id } = useParams();
     const questionsList = useSelector((state) => state.questionsReducer);
-
     const [Answer, setAnswer] = useState("");
     const Navigate = useNavigate();
     const dispatch = useDispatch();
@@ -26,12 +25,20 @@ const QuestionsDetails = () => {
     const location = useLocation();
     const url = "http://localhost:3000";
 
-    const handlePostAns = (e, answerLength) => {
-        e.preventDefault();
-        if (User === null) {
-            alert("You need to login to answer a question.");
+    const isUserAuthenticated = () => User !== null;
+
+    const handleAuthActions = (callback) => {
+        if (!isUserAuthenticated()) {
+            alert("You need to login to perform this action.");
             Navigate("/Auth");
         } else {
+            callback();
+        }
+    };
+
+    const handlePostAns = (e, answerLength) => {
+        e.preventDefault();
+        handleAuthActions(() => {
             if (Answer === "") {
                 alert("Enter an answer before submitting.");
             } else {
@@ -45,36 +52,27 @@ const QuestionsDetails = () => {
                 );
                 setAnswer("");
             }
-        }
+        });
     };
 
     const handleShare = () => {
-        copy(url + location.pathname);
-        alert("Copied URL: " + url + location.pathname);
+        const fullUrl = url + location.pathname;
+        copy(fullUrl);
+        alert("Copied URL: " + fullUrl);
     };
 
     const handleDelete = () => {
         dispatch(deleteQuestion(id, Navigate));
     };
 
-    const handleUpVote = () => {
-        if (User === null) {
-            alert("You need to login to upvote a question.");
-            Navigate("/Auth");
-        } else {
-            dispatch(voteQuestion(id, "upVote"));
-        }
+    const handleVote = (type) => {
+        handleAuthActions(() => {
+            dispatch(voteQuestion(id, type));
+        });
     };
 
-    const handleDownVote = () => {
-        if (User === null) {
-            alert("You need to login to downvote a question.");
-            Navigate("/Auth");
-        } else {
-            dispatch(voteQuestion(id, "downVote"));
-        }
-    };
-
+    const handleUpVote = () => handleVote("upVote");
+    const handleDownVote = () => handleVote("downVote");
     return (
         <div className="question-details-page">
             {questionsList.data === null ? (
