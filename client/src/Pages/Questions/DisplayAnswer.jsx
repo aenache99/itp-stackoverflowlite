@@ -85,22 +85,29 @@ const Answer = ({
     </div>
 );
 
-const DisplayAnswer = ({ question, handleShare }) => {
-    const User = useSelector((state) => state.currentUserReducer);
-    const { id } = useParams();
+const useVoteHandler = (id, User) => {
     const dispatch = useDispatch();
-
-    const handleDelete = (answerId, noOfAnswers) => {
-        dispatch(deleteAnswer(id, answerId, noOfAnswers - 1));
-    };
-
-    const handleVote = (answerId, value) => {
+    return (answerId, value) => {
         if (!User) {
             alert(`You need to login to ${value === "upVote" ? "upvote" : "downvote"} an answer.`);
         } else {
             dispatch(voteAnswer(id, answerId, value));
         }
     };
+};
+
+const useDeleteHandler = (id) => {
+    const dispatch = useDispatch();
+    return (answerId, noOfAnswers) => {
+        dispatch(deleteAnswer(id, answerId, noOfAnswers - 1));
+    };
+};
+
+const DisplayAnswer = ({ question, handleShare }) => {
+    const User = useSelector((state) => state.currentUserReducer);
+    const { id } = useParams();
+    const handleVote = useVoteHandler(id, User);
+    const handleDelete = useDeleteHandler(id);
 
     return (
         <div>
