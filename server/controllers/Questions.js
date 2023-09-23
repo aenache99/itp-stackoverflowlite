@@ -2,10 +2,8 @@ import Questions from "../models/Questions.js";
 import mongoose from "mongoose";
 
 export const AskQuestion = async (req, res) => {
-    const postQuestionData = req.body;
-    const userId = req.userId;
-    const postQuestion = new Questions({ ...postQuestionData, userId });
     try {
+        const postQuestion = new Questions({ ...req.body, userId: req.userId });
         await postQuestion.save();
         res.status(200).json("Posted a question successfully");
     } catch (error) {
@@ -56,37 +54,20 @@ export const voteQuestion = async (req, res) => {
         return res.status(404).send("question unavailable...");
     }
 
-    try {
-        const question = await Questions.findById(_id);
-        const upIndex = question.upVote.findIndex((id) => id === String(userId));
-        const downIndex = question.downVote.findIndex(
-            (id) => id === String(userId)
-        );
+    const update = {};
 
-        if (value === "upVote") {
-            if (downIndex !== -1) {
-                question.downVote = question.downVote.filter(
-                    (id) => id !== String(userId)
-                );
-            }
-            if (upIndex === -1) {
-                question.upVote.push(userId);
-            } else {
-                question.upVote = question.upVote.filter((id) => id !== String(userId));
-            }
-        } else if (value === "downVote") {
-            if (upIndex !== -1) {
-                question.upVote = question.upVote.filter((id) => id !== String(userId));
-            }
-            if (downIndex === -1) {
-                question.downVote.push(userId);
-            } else {
-                question.downVote = question.downVote.filter(
-                    (id) => id !== String(userId)
-                );
-            }
-        }
-        await Questions.findByIdAndUpdate(_id, question);
+    if (value === "upVote") {
+        update.$addToSet = { upVote: userId };
+        update.$pull = { downVote: userId };
+    } else if (value === "downVote") {
+        update.$addToSet = { downVote: userId };
+        update.$pull = { upVote: userId };
+    } else {
+        return res.status(400).send("Invalid vote type");
+    }
+
+    try {
+        await Questions.findByIdAndUpdate(_id, update);
         res.status(200).json({ message: "voted successfully..." });
     } catch (error) {
         res.status(404).json({ message: "id not found" });

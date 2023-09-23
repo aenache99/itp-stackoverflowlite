@@ -24,8 +24,9 @@ export const deleteAnswer = async (req, res) => {
     const { id: questionId } = req.params;
     const { answerId } = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(questionId)) return res.status(404).send("Question unavailable...");
-    if (!mongoose.Types.ObjectId.isValid(answerId)) return res.status(404).send("Answer unavailable...");
+    if (!mongoose.Types.ObjectId.isValid(questionId) || !mongoose.Types.ObjectId.isValid(answerId)) {
+        return res.status(404).send("Invalid question or answer ID");
+    }
 
     try {
         await Questions.updateOne(
@@ -39,54 +40,34 @@ export const deleteAnswer = async (req, res) => {
 };
 
 export const voteAnswer = async (req, res) => {
-    const { id: _id, answerId } = req.params;
+    const { id: questionId, answerId } = req.params;
     const { value } = req.params;
     const userId = req.userId;
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).send("question unavailable...");
+    if (!mongoose.Types.ObjectId.isValid(questionId)) {
+        return res.status(404).send("Question unavailable...");
+    }
+
+    const update = {};
+
+    if (value === "upVote") {
+        update.$addToSet = { "answer.$[ans].upVote": userId };
+        update.$pull = { "answer.$[ans].downVote": userId };
+    } else if (value === "downVote") {
+        update.$addToSet = { "answer.$[ans].downVote": userId };
+        update.$pull = { "answer.$[ans].upVote": userId };
+    } else {
+        return res.status(400).send("Invalid vote type");
     }
 
     try {
-        const question = await Questions.findById(_id);
-        if (!question) {
-            return res.status(404).send("Question not found...");
-        }
+        await Questions.updateOne({ _id: questionId }, update, {
+            arrayFilters: [{ "ans._id": answerId }]
+        });
 
-        const answer = question.answer.find(ans => ans._id.toString() === answerId);
-        if (!answer) {
-            return res.status(404).send("Answer not found...");
-        }
-
-        const upIndex = answer.upVote.findIndex((id) => id === String(userId));
-        const downIndex = answer.downVote.findIndex((id) => id === String(userId));
-
-        if (value === "upVote") {
-            if (downIndex !== -1) {
-                answer.downVote = answer.downVote.filter((id) => id !== String(userId));
-            }
-            if (upIndex === -1) {
-                answer.upVote.push(userId);
-            } else {
-                answer.upVote = answer.upVote.filter((id) => id !== String(userId));
-            }
-        } else if (value === "downVote") {
-            if (upIndex !== -1) {
-                answer.upVote = answer.upVote.filter((id) => id !== String(userId));
-            }
-            if (downIndex === -1) {
-                answer.downVote.push(userId);
-            } else {
-                answer.downVote = answer.downVote.filter((id) => id !== String(userId));
-            }
-        }
-
-        await question.save();
-        res.status(200).json({ message: "voted successfully on the answer..." });
-
+        res.status(200).json({ message: "Voted successfully on the answer..." });
     } catch (error) {
-        console.error("Error while voting on answer:", error);  // Log the error for debugging
+        console.error("Error while voting on answer:", error);
         res.status(500).json({ message: "Error voting on the answer..." });
     }
 };
-
