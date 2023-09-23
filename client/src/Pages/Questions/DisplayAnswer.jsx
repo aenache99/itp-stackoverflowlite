@@ -2,15 +2,19 @@ import React from "react";
 import moment from "moment";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import Avatar from "../../components/Avatar/Avatar";
 import { deleteAnswer, voteAnswer } from "../../actions/question";
-
 import upvote from "../../assets/sort-up.svg";
 import downvote from "../../assets/sort-down.svg";
 
-// Create a separate Answer component
-const Answer = ({ ans, handleShare, handleDelete, handleUpVote, handleDownVote, User }) => (
+const Answer = ({
+                    ans,
+                    handleShare,
+                    handleDelete,
+                    handleUpVote,
+                    handleDownVote,
+                    User,
+                }) => (
     <div className="display-ans" key={ans._id}>
         <div className="question-details-container-2">
             <div className="question-votes">
@@ -79,21 +83,12 @@ const DisplayAnswer = ({ question, handleShare }) => {
         dispatch(deleteAnswer(id, answerId, noOfAnswers - 1));
     };
 
-    const handleUpVoteAnswer = (answerId) => {
+    const handleVote = (answerId, value) => {
         if (!User) {
-            alert("You need to login to upvote an answer.");
-            // Ensure you navigate users to login if they aren't authenticated.
-        } else {
-            dispatch(voteAnswer(id, answerId, "upVote"));
-        }
-    };
-
-    const handleDownVoteAnswer = (answerId) => {
-        if (!User) {
-            alert("You need to login to downvote an answer.");
+            alert(`You need to login to ${value === "upVote" ? "upvote" : "downvote"} an answer.`);
             // Navigate users to login if they aren't authenticated.
         } else {
-            dispatch(voteAnswer(id, answerId, "downVote"));
+            dispatch(voteAnswer(id, answerId, value));
         }
     };
 
@@ -104,8 +99,8 @@ const DisplayAnswer = ({ question, handleShare }) => {
                     ans={ans}
                     handleShare={handleShare}
                     handleDelete={handleDelete}
-                    handleUpVote={handleUpVoteAnswer}
-                    handleDownVote={handleDownVoteAnswer}
+                    handleUpVote={() => handleVote(ans._id, "upVote")}
+                    handleDownVote={() => handleVote(ans._id, "downVote")}
                     User={User}
                     key={ans._id}
                 />
