@@ -16,18 +16,18 @@ import {
 } from "../../actions/question";
 
 const QuestionsDetails = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const Navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
     const questionsList = useSelector((state) => state.questionsReducer);
     const currentUser = useSelector((state) => state.currentUserReducer);
     const [answer, setAnswer] = useState("");
-    const url = "http://localhost:3000";
 
-    const matchedQuestion = useMemo(() =>
-            questionsList.data?.find((question) => question._id === id)
-        , [id, questionsList.data]);
+    const matchedQuestion = useMemo(
+        () => questionsList.data?.find((question) => question._id === id),
+        [id, questionsList.data]
+    );
 
     const isLoggedIn = () => {
         if (!currentUser) {
@@ -40,42 +40,36 @@ const QuestionsDetails = () => {
 
     const handlePostAns = (e, answerLength) => {
         e.preventDefault();
-        if (isLoggedIn()) {
-            if (answer.trim() === "") {
-                alert("Enter an answer before submitting.");
-            } else {
-                dispatch(
-                    postAnswer({
-                        id,
-                        noOfAnswers: answerLength + 1,
-                        answerBody: answer,
-                        userAnswered: currentUser.result.name,
-                    })
-                );
-                setAnswer("");
-            }
+        if (isLoggedIn() && answer.trim()) {
+            dispatch(
+                postAnswer({
+                    id,
+                    noOfAnswers: answerLength + 1,
+                    answerBody: answer,
+                    userAnswered: currentUser.result.name,
+                })
+            );
+            setAnswer("");
+        } else {
+            alert("Enter an answer before submitting.");
         }
     };
 
     const handleVote = (type) => {
-        if (isLoggedIn()) {
-            dispatch(voteQuestion(id, type));
-        }
+        isLoggedIn() && dispatch(voteQuestion(id, type));
     };
 
     const handleShare = () => {
-        const fullPath = url + location.pathname;
+        const fullPath = window.location.origin + location.pathname;
         copy(fullPath);
         alert("Copied URL: " + fullPath);
     };
 
     const handleDelete = () => {
-        dispatch(deleteQuestion(id, Navigate));
+        isLoggedIn() && dispatch(deleteQuestion(id, Navigate));
     };
 
-    if (!matchedQuestion) {
-        return <h1>Loading...</h1>;
-    }
+    if (!matchedQuestion) return <h1>Loading...</h1>;
 
     return (
         <div className="question-details-page">
