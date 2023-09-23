@@ -6,56 +6,38 @@ import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
 
 const AskQuestion = () => {
-    const [formData, setFormData] = useState({
-        questionTitle: "",
-        questionBody: "",
-        questionTags: "",
-    });
+    const [questionTitle, setQuestionTitle] = useState("");
+    const [questionBody, setQuestionBody] = useState("");
+    const [questionTags, setQuestionTags] = useState("");
 
     const dispatch = useDispatch();
     const User = useSelector((state) => state.currentUserReducer);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (User) {
-            const { questionTitle, questionBody, questionTags } = formData;
             if (questionTitle && questionBody && questionTags) {
                 dispatch(
                     askQuestion(
                         {
-                            ...formData,
+                            questionTitle,
+                            questionBody,
+                            questionTags,
                             userPosted: User.result.name,
-                            questionTags: questionTags.split(" "),
                         },
                         navigate
                     )
                 );
-            } else {
-                alert("Please enter all the fields.");
-            }
-        } else {
-            alert("You need to login to ask a question.");
-        }
+            } else alert("Please enter all the fields.");
+        } else alert("You need to login to ask a question.");
     };
 
     const handleEnter = (e) => {
         if (e.key === "Enter") {
-            setFormData({
-                ...formData,
-                questionBody: formData.questionBody + "\n",
-            });
+            setQuestionBody(questionBody + "\n");
         }
     };
-
     return (
         <div className="ask-question">
             <div className="ask-ques-container">
@@ -64,24 +46,31 @@ const AskQuestion = () => {
                     <div className="ask-form-container">
                         <label htmlFor="ask-ques-title">
                             <h4>Title</h4>
-                            <p>Be specific and imagine you’re asking a question to another person:</p>
+                            <p>
+                                Be specific and imagine you’re asking a question to another
+                                person:
+                            </p>
                             <input
                                 type="text"
                                 id="ask-ques-title"
-                                name="questionTitle"
-                                value={formData.questionTitle}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setQuestionTitle(e.target.value);
+                                }}
                                 placeholder="e.g. How to count the number of objects in a JavaScript array?"
                             />
                         </label>
                         <label htmlFor="ask-ques-body">
                             <h4>Body</h4>
-                            <p>Include all the information someone would need to answer your question:</p>
+                            <p>
+                                Include all the information someone would need to answer your
+                                question:
+                            </p>
                             <textarea
-                                name="questionBody"
+                                name=""
                                 id="ask-ques-body"
-                                value={formData.questionBody}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setQuestionBody(e.target.value);
+                                }}
                                 cols="30"
                                 rows="10"
                                 onKeyPress={handleEnter}
@@ -93,14 +82,18 @@ const AskQuestion = () => {
                             <input
                                 type="text"
                                 id="ask-ques-tags"
-                                name="questionTags"
-                                value={formData.questionTags}
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setQuestionTags(e.target.value.split(" "));
+                                }}
                                 placeholder="e.g. (xml typescript wordpress)"
                             />
                         </label>
                     </div>
-                    <input type="submit" value="Post Question" className="review-btn" />
+                    <input
+                        type="submit"
+                        value="Post Question"
+                        className="review-btn"
+                    />
                 </form>
             </div>
         </div>
