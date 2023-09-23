@@ -6,38 +6,53 @@ import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
 
 const AskQuestion = () => {
-    const [questionTitle, setQuestionTitle] = useState("");
-    const [questionBody, setQuestionBody] = useState("");
-    const [questionTags, setQuestionTags] = useState("");
+    const [formData, setFormData] = useState({
+        questionTitle: "",
+        questionBody: "",
+        questionTags: "",
+    });
 
     const dispatch = useDispatch();
     const User = useSelector((state) => state.currentUserReducer);
     const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!User) {
-            alert("You need to login to ask a question.");
-            return;
-        }
-
-        if (questionTitle && questionBody && questionTags) {
-            dispatch(
-                askQuestion({
-                    questionTitle,
-                    questionBody,
-                    questionTags: questionTags.split(" "),
-                    userPosted: User.result.name,
-                }, navigate)
-            );
+        if (User) {
+            const { questionTitle, questionBody, questionTags } = formData;
+            if (questionTitle && questionBody && questionTags) {
+                dispatch(
+                    askQuestion(
+                        {
+                            ...formData,
+                            userPosted: User.result.name,
+                            questionTags: questionTags.split(" "),
+                        },
+                        navigate
+                    )
+                );
+            } else {
+                alert("Please enter all the fields.");
+            }
         } else {
-            alert("Please enter all the fields.");
+            alert("You need to login to ask a question.");
         }
     };
 
     const handleEnter = (e) => {
         if (e.key === "Enter") {
-            setQuestionBody(questionBody + "\n");
+            setFormData({
+                ...formData,
+                questionBody: formData.questionBody + "\n",
+            });
         }
     };
 
@@ -53,7 +68,9 @@ const AskQuestion = () => {
                             <input
                                 type="text"
                                 id="ask-ques-title"
-                                onChange={(e) => setQuestionTitle(e.target.value)}
+                                name="questionTitle"
+                                value={formData.questionTitle}
+                                onChange={handleChange}
                                 placeholder="e.g. How to count the number of objects in a JavaScript array?"
                             />
                         </label>
@@ -61,9 +78,10 @@ const AskQuestion = () => {
                             <h4>Body</h4>
                             <p>Include all the information someone would need to answer your question:</p>
                             <textarea
-                                name=""
+                                name="questionBody"
                                 id="ask-ques-body"
-                                onChange={(e) => setQuestionBody(e.target.value)}
+                                value={formData.questionBody}
+                                onChange={handleChange}
                                 cols="30"
                                 rows="10"
                                 onKeyPress={handleEnter}
@@ -75,8 +93,10 @@ const AskQuestion = () => {
                             <input
                                 type="text"
                                 id="ask-ques-tags"
-                                onChange={(e) => setQuestionTags(e.target.value)}
-                                placeholder="e.g. xml typescript wordpress"
+                                name="questionTags"
+                                value={formData.questionTags}
+                                onChange={handleChange}
+                                placeholder="e.g. (xml typescript wordpress)"
                             />
                         </label>
                     </div>
