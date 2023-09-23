@@ -7,7 +7,13 @@ import { deleteAnswer, voteAnswer } from "../../actions/question";
 import upvote from "../../assets/sort-up.svg";
 import downvote from "../../assets/sort-down.svg";
 
-const Answer = ({ ans, handleShare, handleDelete, handleVote, User }) => (
+const Answer = ({
+                    ans,
+                    handleShare,
+                    handleDelete,
+                    handleVote,
+                    User,
+                }) => (
     <div className="display-ans" key={ans._id}>
         <div className="question-details-container-2">
             <div className="question-votes">
