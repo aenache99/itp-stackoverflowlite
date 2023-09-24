@@ -20,10 +20,8 @@ It is built using the MERN stack as its core. The following full stack is as fol
 6. Containerization and Orchestration: Docker, Docker Compose and Kubernetes
 7. Deployment: Google Cloud Platform
 8. Version Control: Git and GitHub
-9. Caching: Redis
-10. Metrics: ElasticSearch and Kibana
-11. CI/CD: Jenkins
-12. Testing: Mocha/Chai and Selenium
+9. CI/CD: Jenkins
+10. Testing: Mocha/Chai and Selenium
 
 
 ## How to Run This Project Locally
