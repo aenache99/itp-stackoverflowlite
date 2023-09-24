@@ -62,3 +62,81 @@ Once you are done, you can stop the project by pressing CTRL+C in the terminal w
 ```bash
 docker-compose down
 ```
+Let's overview the technologies used in this project:
+
+1. Database: NoSQL (Serverless MongoDB):
+
+Scalability: NoSQL databases like MongoDB are highly scalable, allowing your application to handle a large number of users and data without major changes to the database structure.
+
+Flexibility: NoSQL databases are schema-less, providing flexibility in data modeling, which can be helpful when dealing with diverse user-generated content.
+
+Ease of use: MongoDB Atlas is a fully managed database service, which means you don't have to worry about managing the database infrastructure. Though it comes with the usual disadvantages of a managed service, such as  limited customization.
+
+2. Backend: Node.js, Express.js
+
+Fast Execution: Node.js is known for its non-blocking, event-driven architecture, which can lead to fast and responsive backend services.
+
+JavaScript Everywhere: Using JavaScript on both the frontend and backend allows for easier code sharing and maintenance.
+
+Perfectly fit for the job: Since our Stack Overflow clone isn't CPU intensive, it nullifies the main drawback of Node.js, which is its poor performance in CPU-intensive tasks.
+
+3. Frontend: React.js, Axios, React Router
+
+Reusability: React's component-based architecture promotes the DRY approach, making it easier to develop and maintain complex user interfaces.
+
+Routing: React Router simplifies client-side routing, enhancing the user experience by enabling single-page applications.
+
+Efficiency: Axios simplifies making HTTP requests, making it easier to interact with the backend API.
+
+Potential Mobile App: The frontend can be easily ported to React Native, allowing for a mobile app to be developed.
+
+4. Authentication: Auth0
+
+Security: Auth0 provides robust authentication and authorization features, helping you secure user data and access control.
+
+Ease of Integration: Auth0 offers easy integration with various identity providers and social logins, reducing development time.
+
+5. Real-time Communication: Socket.io
+
+Socket.io enables real-time bidirectional communication between the server and client, essential for features like live chat and notifications.
+
+6. Containerization and Orchestration: Docker, Docker Compose, and Kubernetes
+
+Portability: Docker containers ensure consistent application behavior across different environments, making deployment and scaling more manageable.
+Scalability: Kubernetes orchestrates container deployment and scaling, allowing for efficient resource management.
+
+7. Deployment: Google Cloud Platform
+
+Scalability: GCP offers auto-scaling and load balancing, ensuring your application can handle traffic spikes.
+
+Managed Services: GCP provides various managed services, reducing the operational overhead of maintaining infrastructure.
+
+Ease of use of the OP: I have experience with GCP, so it was easier to deploy the application on GCP. Though that doesn't mean that AWS or Azure are not good options.
+
+8. Version Control: Git and GitHub
+
+Collaboration: Git and GitHub facilitate collaboration among developers, version tracking, and code review processes.
+
+Ease of use: Git and GitHub are easy to use, making it easier for developers to contribute to the project.
+
+Tracking Changes: Git and GitHub allow to track changes to the codebase, making it easier to debug issues and revert changes if needed.
+
+Integration with CI/CD: Git and GitHub integrate well with CI/CD tools, allowing to automate the testing and deployment process.
+
+GitHub Issues: GitHub Issues allow to track bugs and feature requests, making it easier to manage the project. Also it plays well with Kanban boards like Trello.
+
+9. CI/CD: Jenkins
+
+Automation: Jenkins automates the testing and deployment process, ensuring consistent and reliable releases.
+
+Customization: Jenkins offers a high degree of customization for CI/CD pipelines.
+
+Local: Since it's local, we can easily test the application before deploying it to production.
+
+10. Testing: Mocha/Chai and Selenium
+
+Comprehensive Testing: Mocha and Chai are popular choices for writing unit and integration tests in JavaScript.
+
+Browser Testing: Selenium allows to automate browser testing, ensuring cross-browser compatibility.
+
+NOTE: Socket.io and Auth0 were not implemented due to the complexity involved. Jenkins as well due to the limited time. They can be implemented however in a future MVP.
