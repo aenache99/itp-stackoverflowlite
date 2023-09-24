@@ -11,82 +11,93 @@ const AskQuestion = () => {
     const [questionTags, setQuestionTags] = useState("");
 
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.currentUserReducer);
+    const User = useSelector((state) => state.currentUserReducer);
     const navigate = useNavigate();
-
-    const isFormComplete = () => questionTitle && questionBody && questionTags;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!user) {
-            alert("You need to login to ask a question.");
-            return;
-        }
-
-        if (isFormComplete()) {
-            dispatchAskQuestion();
-        } else {
-            alert("Please enter all the fields.");
-        }
-    };
-
-    const dispatchAskQuestion = () => {
-        dispatch(
-            askQuestion({
-                questionTitle,
-                questionBody,
-                questionTags,
-                userPosted: user.result.name,
-            }, navigate)
-        );
+        if (User) {
+            if (questionTitle && questionBody && questionTags) {
+                dispatch(
+                    askQuestion(
+                        {
+                            questionTitle,
+                            questionBody,
+                            questionTags,
+                            userPosted: User.result.name,
+                        },
+                        navigate
+                    )
+                );
+            } else alert("Please enter all the fields.");
+        } else alert("You need to login to ask a question.");
     };
 
     const handleEnter = (e) => {
         if (e.key === "Enter") {
-            setQuestionBody(prevBody => prevBody + "\n");
+            setQuestionBody(questionBody + "\n");
         }
     };
-
     return (
         <div className="ask-question">
             <div className="ask-ques-container">
                 <h1>Ask a public Question</h1>
                 <form onSubmit={handleSubmit}>
-                    <QuestionInput label="Title" placeholder="e.g. How to count the number of objects in a JavaScript array?" value={questionTitle} setValue={setQuestionTitle} />
-                    <QuestionTextarea label="Body" placeholder="" value={questionBody} setValue={setQuestionBody} handleEnter={handleEnter} />
-                    <QuestionInput label="Tags" placeholder="e.g. (xml typescript wordpress)" value={questionTags.join(' ')} setValue={(value) => setQuestionTags(value.split(" "))} />
-                    <input type="submit" value="Post Question" className="review-btn" />
+                    <div className="ask-form-container">
+                        <label htmlFor="ask-ques-title">
+                            <h4>Title</h4>
+                            <p>
+                                Be specific and imagine you’re asking a question to another
+                                person:
+                            </p>
+                            <input
+                                type="text"
+                                id="ask-ques-title"
+                                onChange={(e) => {
+                                    setQuestionTitle(e.target.value);
+                                }}
+                                placeholder="e.g. How to count the number of objects in a JavaScript array?"
+                            />
+                        </label>
+                        <label htmlFor="ask-ques-body">
+                            <h4>Body</h4>
+                            <p>
+                                Include all the information someone would need to answer your
+                                question:
+                            </p>
+                            <textarea
+                                name=""
+                                id="ask-ques-body"
+                                onChange={(e) => {
+                                    setQuestionBody(e.target.value);
+                                }}
+                                cols="30"
+                                rows="10"
+                                onKeyPress={handleEnter}
+                            ></textarea>
+                        </label>
+                        <label htmlFor="ask-ques-tags">
+                            <h4>Tags</h4>
+                            <p>Add up to 5 tags to describe what your question is about:</p>
+                            <input
+                                type="text"
+                                id="ask-ques-tags"
+                                onChange={(e) => {
+                                    setQuestionTags(e.target.value.split(" "));
+                                }}
+                                placeholder="e.g. (xml typescript wordpress)"
+                            />
+                        </label>
+                    </div>
+                    <input
+                        type="submit"
+                        value="Post Question"
+                        className="review-btn"
+                    />
                 </form>
             </div>
         </div>
     );
 };
-
-const QuestionInput = ({ label, placeholder, value, setValue }) => (
-    <label>
-        <h4>{label}</h4>
-        <p>Description</p>
-        <input
-            type="text"
-            onChange={(e) => setValue(e.target.value)}
-            placeholder={placeholder}
-            value={value}
-        />
-    </label>
-);
-
-const QuestionTextarea = ({ label, value, setValue, handleEnter }) => (
-    <label>
-        <h4>{label}</h4>
-        <p>Description</p>
-        <textarea
-            onChange={(e) => setValue(e.target.value)}
-            cols="30"
-            rows="10"
-            onKeyPress={handleEnter}
-            value={value}
-        ></textarea>
-    </label>
-);
 
 export default AskQuestion;
