@@ -79,6 +79,7 @@ const QuestionsDetails = () => {
         toast.success('Downvoted');
     };
 
+
     const renderQuestion = () => {
         if (!questionsList.data) {
             return <Loader />;

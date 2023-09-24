@@ -1,4 +1,5 @@
 # StackOverflow Light Project (WIP as of now)
+<a href="https://codeclimate.com/github/aenache99/itp-stackoverflowlite/maintainability"><img src="https://api.codeclimate.com/v1/badges/0a18c2c4d4243eb739f8/maintainability" /></a>
 
 ## Project Overview
 
@@ -9,9 +10,6 @@ Everything is pushed to Git except course for the environment variables. The env
 
 GCP link: TBA
 
-YouTube presentation link: TBA
-
-
 It is built using the MERN stack as its core. The following full stack is as follows:
 
 1. Databases: NoSQL (Serverless MongoDB)
@@ -19,13 +17,13 @@ It is built using the MERN stack as its core. The following full stack is as fol
 3. Frontend: React.js, Axios, React Router
 4. Authentication: Auth0
 5. Realtime updates: Socket.io
-6. Containerization and Orchestration: Docker and Kubernetes
+6. Containerization and Orchestration: Docker, Docker Compose and Kubernetes
 7. Deployment: Google Cloud Platform
 8. Version Control: Git and GitHub
 9. Caching: Redis
 10. Metrics: ElasticSearch and Kibana
 11. CI/CD: Jenkins
-12. Testing: Jest and Selenium
+12. Testing: Mocha/Chai and Selenium
 
 
 ## How to Run This Project Locally
