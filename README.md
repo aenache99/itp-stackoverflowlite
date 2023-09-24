@@ -139,4 +139,3 @@ Comprehensive Testing: Mocha and Chai are popular choices for writing unit and i
 
 Browser Testing: Selenium allows to automate browser testing, ensuring cross-browser compatibility.
 
-NOTE: Socket.io and Auth0 were not implemented due to the complexity involved. Jenkins as well due to the limited time. They can be implemented however in a future MVP.
