@@ -16,15 +16,53 @@ const WidgetMetrics = () => {
         fetchMetrics();
     }, []);
 
+    const numberToDay = (num) => {
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        return days[num-1] || "Invalid day";
+    };
+
+
     const metricItems = metrics && [
-        { text: `Popular Day of the Week: ${metrics.popularDay[0]._id}` },
-        { text: `Avg Questions/User: ${metrics.avgMetrics.avgQuestionsPerUser.toFixed(2)}` },
-        { text: `Avg Votes/User: ${metrics.avgMetrics.avgVotesPerUser.toFixed(2)}` },
-        { text: `Avg Answers/User: ${metrics.avgMetrics.avgAnswersPerUser.toFixed(2)}` },
-        { text: `Total Questions: ${metrics.totalMetrics.totalQuestions}` },
-        { text: `Total Upvotes: ${metrics.totalMetrics.totalUpvotes}` },
-        { text: `Total Downvotes: ${metrics.totalMetrics.totalDownvotes}` },
-        { text: `Total Answers: ${metrics.totalMetrics.totalAnswers}` }
+        {
+            text: `Popular Day of the Week: ${typeof metrics.popularDay[0]._id === 'string' ?
+                metrics.popularDay[0]._id :
+                numberToDay(metrics.popularDay[0]._id)}`
+        },
+        {
+            text: `Avg Questions/User: ${typeof metrics.avgMetrics.avgQuestionsPerUser === 'string' ?
+                metrics.avgMetrics.avgQuestionsPerUser :
+                metrics.avgMetrics.avgQuestionsPerUser.toFixed(2)}`
+        },
+        {
+            text: `Avg Votes/User: ${typeof metrics.avgMetrics.avgVotesPerUser === 'string' ?
+                metrics.avgMetrics.avgVotesPerUser :
+                metrics.avgMetrics.avgVotesPerUser.toFixed(2)}`
+        },
+        {
+            text: `Avg Answers/User: ${typeof metrics.avgMetrics.avgAnswersPerUser === 'string' ?
+                metrics.avgMetrics.avgAnswersPerUser :
+                metrics.avgMetrics.avgAnswersPerUser.toFixed(2)}`
+        },
+        {
+            text: `Total Questions: ${typeof metrics.totalMetrics.totalQuestions === 'string' ?
+                metrics.totalMetrics.totalQuestions :
+                metrics.totalMetrics.totalQuestions}`
+        },
+        {
+            text: `Total Upvotes: ${typeof metrics.totalMetrics.totalUpvotes === 'string' ?
+                metrics.totalMetrics.totalUpvotes :
+                metrics.totalMetrics.totalUpvotes}`
+        },
+        {
+            text: `Total Downvotes: ${typeof metrics.totalMetrics.totalDownvotes === 'string' ?
+                metrics.totalMetrics.totalDownvotes :
+                metrics.totalMetrics.totalDownvotes}`
+        },
+        {
+            text: `Total Answers: ${typeof metrics.totalMetrics.totalAnswers === 'string' ?
+                metrics.totalMetrics.totalAnswers :
+                metrics.totalMetrics.totalAnswers}`
+        }
     ];
 
     return (

@@ -3,6 +3,27 @@ import Question from "../models/Questions.js";
 
 export const getMetrics = async (req, res, next) => {
     try {
+        // Check if there are any questions in the database
+        const totalQuestionsCount = await Question.countDocuments();
+
+        // If there are no questions, return a default response
+        if (totalQuestionsCount === 0) {
+            return res.status(200).send({
+                popularDay: [{ _id: 'Data Unavailable' }],
+                avgMetrics: {
+                    avgQuestionsPerUser: 'Data Unavailable',
+                    avgVotesPerUser: 'Data Unavailable',
+                    avgAnswersPerUser: 'Data Unavailable'
+                },
+                totalMetrics: {
+                    totalQuestions: 'Data Unavailable',
+                    totalUpvotes: 'Data Unavailable',
+                    totalDownvotes: 'Data Unavailable',
+                    totalAnswers: 'Data Unavailable'
+                }
+            });
+        }
+
         // 1. Most popular day of the week
         const popularDay = await Question.aggregate([
             {

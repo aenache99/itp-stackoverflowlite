@@ -18,10 +18,6 @@ export const askQuestion = (questionData, navigate) => async (dispatch) => {
 
 export const fetchAllQuestions = () => createAsyncAction(api.getAllQuestions, "FETCH_ALL_QUESTIONS");
 
-export const fetchPopularQuestions = () => async (dispatch) => {
-    await createAsyncAction(api.fetchPopularQuestions, "FETCH_POPULAR")(dispatch);
-};
-
 export const deleteQuestion = (id, navigate) => async (dispatch) => {
     await createAsyncAction(api.deleteQuestion, "DELETE_QUESTION")(dispatch, id);
     navigate("/");
@@ -40,6 +36,8 @@ export const deleteAnswer = (id, answerId, noOfAnswers) => async (dispatch) => {
     await createAsyncAction(api.deleteAnswer, "DELETE_ANSWER")(dispatch, id, answerId, noOfAnswers);
 };
 
-export const voteAnswer = (questionId, answerId, value) => async (dispatch) => {
-    await createAsyncAction(api.voteAnswer, "VOTE_ANSWER")(dispatch, questionId, answerId, value);
+export const voteAnswer = (answerId, value) => async (dispatch) => {
+    console.log('Voting with id:', answerId);
+    console.log('Voting with value:', value);
+    await createAsyncAction(api.voteAnswer, "VOTE_ANSWER")(dispatch, answerId, value);
 };

@@ -38,7 +38,9 @@ const DisplayAnswer = ({ question, handleShare }) => {
         if (!User) {
             toast.error(`You need to login to ${value === "upVote" ? "upvote" : "downvote"} an answer.`);
         } else {
-            dispatch(voteAnswer(id, answerId, value));
+            console.log('answerId:', answerId);
+            console.log('value:', value);
+            dispatch(voteAnswer(answerId, value));
         }
     };
 

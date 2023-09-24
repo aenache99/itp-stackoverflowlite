@@ -40,12 +40,12 @@ export const deleteAnswer = async (req, res) => {
 };
 
 export const voteAnswer = async (req, res) => {
-    const { id: questionId, answerId } = req.params;
-    const { value } = req.params;
+    const { id: answerId } = req.params;
+    const { value } = req.body;
     const userId = req.userId;
 
-    if (!mongoose.Types.ObjectId.isValid(questionId)) {
-        return res.status(404).send("Question unavailable...");
+    if (!mongoose.Types.ObjectId.isValid(answerId)) {
+        return res.status(404).send("Answer unavailable...");
     }
 
     const update = {};
@@ -61,9 +61,22 @@ export const voteAnswer = async (req, res) => {
     }
 
     try {
-        await Questions.updateOne({ _id: questionId }, update, {
-            arrayFilters: [{ "ans._id": answerId }]
-        });
+        // Updating the answer by its ID
+        const result = await Questions.updateOne(
+            { "answer._id": answerId },
+            update,
+            {
+                arrayFilters: [{ "ans._id": answerId }]
+            }
+        );
+
+        // Log the result for debugging purposes
+        console.log(result);
+
+        // If no document is modified, it means the answer was not found
+        if (result.modifiedCount === 0) {
+            return res.status(404).send("Answer not found...");
+        }
 
         res.status(200).json({ message: "Voted successfully on the answer..." });
     } catch (error) {
