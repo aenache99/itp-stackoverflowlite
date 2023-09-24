@@ -1,43 +1,37 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { askQuestion } from "../../actions/question";
+import toast from 'react-hot-toast'
 
 import "./AskQuestion.css";
-import { askQuestion } from "../../actions/question";
+import Editor from '../../components/Editor/Editor'
 
 const AskQuestion = () => {
     const [questionTitle, setQuestionTitle] = useState("");
     const [questionBody, setQuestionBody] = useState("");
     const [questionTags, setQuestionTags] = useState("");
 
-    const dispatch = useDispatch();
-    const User = useSelector((state) => state.currentUserReducer);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const User = useSelector(state => state.currentUserReducer)
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (User) {
             if (questionTitle && questionBody && questionTags) {
-                dispatch(
-                    askQuestion(
-                        {
-                            questionTitle,
-                            questionBody,
-                            questionTags,
-                            userPosted: User.result.name,
-                        },
-                        navigate
-                    )
-                );
-            } else alert("Please enter all the fields.");
-        } else alert("You need to login to ask a question.");
+                dispatch(askQuestion({
+                    questionTitle,
+                    questionBody,
+                    questionTags,
+                    userPosted: User.result.name,
+                    userId: User?.result._id,
+                }, navigate))
+                toast.success('Question posted successfully')
+            } else toast.error('Please enter value in all the fields')
+        } else toast.error('Please Login to ask question')
     };
 
-    const handleEnter = (e) => {
-        if (e.key === "Enter") {
-            setQuestionBody(questionBody + "\n");
-        }
-    };
     return (
         <div className="ask-question">
             <div className="ask-ques-container">
@@ -48,7 +42,7 @@ const AskQuestion = () => {
                             <h4>Title</h4>
                             <p>
                                 Be specific and imagine you’re asking a question to another
-                                person:
+                                person
                             </p>
                             <input
                                 type="text"
@@ -56,29 +50,23 @@ const AskQuestion = () => {
                                 onChange={(e) => {
                                     setQuestionTitle(e.target.value);
                                 }}
-                                placeholder="e.g. How to count the number of objects in a JavaScript array?"
+                                placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
                             />
                         </label>
                         <label htmlFor="ask-ques-body">
                             <h4>Body</h4>
                             <p>
                                 Include all the information someone would need to answer your
-                                question:
+                                question
                             </p>
-                            <textarea
-                                name=""
-                                id="ask-ques-body"
-                                onChange={(e) => {
-                                    setQuestionBody(e.target.value);
-                                }}
-                                cols="30"
-                                rows="10"
-                                onKeyPress={handleEnter}
-                            ></textarea>
+                            <Editor
+                                value={questionBody}
+                                onChange={setQuestionBody}
+                            />
                         </label>
                         <label htmlFor="ask-ques-tags">
                             <h4>Tags</h4>
-                            <p>Add up to 5 tags to describe what your question is about:</p>
+                            <p>Add up to 5 tags to describe what your question is about</p>
                             <input
                                 type="text"
                                 id="ask-ques-tags"
