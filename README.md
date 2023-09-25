@@ -1,22 +1,21 @@
-# StackOverflow Light Project (WIP as of now)
+# StackOverflow Light Project
 <a href="https://codeclimate.com/github/aenache99/itp-stackoverflowlite/maintainability"><img src="https://api.codeclimate.com/v1/badges/0a18c2c4d4243eb739f8/maintainability" /></a>
 
 ## Project Overview
 
-
-This is a Stack Overflow clone project, as of now it is a work in progress.
+This is a Stack Overflow clone project. It conforms to the functionality requirements of In The Pocket. 
 
 Everything is pushed to Git except course for the environment variables. The environment variables are stored in a .env file in the backend directory. The .env file is not pushed to Git until the project is completed.
 
-GCP link: TBA
+
 
 It is built using the MERN stack as its core. The following full stack is as follows:
 
-1. Databases: NoSQL (Serverless MongoDB)
+1. Databases: NoSQL (MongoDB on Atlas, with the ability to cache and scale to our needs)
 2. Backend: Node.js, Express.js
 3. Frontend: React.js, Axios, React Router
-4. Authentication: Auth0
-5. Realtime updates: Socket.io
+4. Authentication: JWT (with Auth0 for a future MVP)
+5. Realtime updates: Socket.io (future MVP)
 6. Containerization and Orchestration: Docker, Docker Compose and Kubernetes
 7. Deployment: Google Cloud Platform
 8. Version Control: Git and GitHub
@@ -148,3 +147,4 @@ Comprehensive Testing: Mocha and Chai are popular choices for writing unit and i
 
 Browser Testing: Selenium allows to automate browser testing, ensuring cross-browser compatibility.
 
+NOTE: Socket.io and Auth0 were not implemented due to the complexity involved. Jenkins as well due to the limited time. They can be implemented however in a future MVP. Full Jenkins pipeline as well.
