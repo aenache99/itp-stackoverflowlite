@@ -66,11 +66,13 @@ Let's overview the technologies used in this project:
 
 1. Database: NoSQL (Serverless MongoDB):
 
-Scalability: NoSQL databases like MongoDB are highly scalable, allowing your application to handle a large number of users and data without major changes to the database structure.
+Scalability: MongoDB is highly scalable, allowing the application to handle a large number of users and data without major changes to the database structure.
 
 Flexibility: NoSQL databases are schema-less, providing flexibility in data modeling, which can be helpful when dealing with diverse user-generated content.
 
-Ease of use: MongoDB Atlas is a fully managed database service, which means you don't have to worry about managing the database infrastructure. Though it comes with the usual disadvantages of a managed service, such as  limited customization.
+Ease of use: MongoDB Atlas is a fully managed database service, which means you don't have to worry about managing the database infrastructure. Though it comes with the usual disadvantages of a managed service, such as limited customization.
+
+Easy scaling: MongoDB Atlas allows to easily scale the database, which is essential for a growing application.
 
 2. Backend: Node.js, Express.js
 
@@ -92,18 +94,25 @@ Potential Mobile App: The frontend can be easily ported to React Native, allowin
 
 4. Authentication: Auth0
 
-Security: Auth0 provides robust authentication and authorization features, helping you secure user data and access control.
+Security: Auth0 provides robust authentication and authorization features, helping to secure user data and access control.
 
 Ease of Integration: Auth0 offers easy integration with various identity providers and social logins, reducing development time.
 
+Completely managed: Auth0 is a fully managed service, which means you don't have to worry about managing the authentication infrastructure. Though it comes with the usual disadvantages of a managed service, such as limited customization.
+
+Specialization: Auth0 specializes in authentication and authorization, which means they have a dedicated team working on improving the service.
+
 5. Real-time Communication: Socket.io
 
-Socket.io enables real-time bidirectional communication between the server and client, essential for features like live chat and notifications.
+Socket.io enables real-time bidirectional communication between the server and client, essential for a forum application.
 
 6. Containerization and Orchestration: Docker, Docker Compose, and Kubernetes
 
 Portability: Docker containers ensure consistent application behavior across different environments, making deployment and scaling more manageable.
+
 Scalability: Kubernetes orchestrates container deployment and scaling, allowing for efficient resource management.
+
+Ease of deployment: Docker Compose allows for easy deployment on a local machine.
 
 7. Deployment: Google Cloud Platform
 
@@ -123,7 +132,7 @@ Tracking Changes: Git and GitHub allow to track changes to the codebase, making 
 
 Integration with CI/CD: Git and GitHub integrate well with CI/CD tools, allowing to automate the testing and deployment process.
 
-GitHub Issues: GitHub Issues allow to track bugs and feature requests, making it easier to manage the project. Also it plays well with Kanban boards like Trello.
+GitHub Issues: GitHub Issues allow to track bugs and feature requests, making it easier to manage the project. Also, it plays well with Kanban boards like Trello.
 
 9. CI/CD: Jenkins
 
