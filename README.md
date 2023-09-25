@@ -126,7 +126,7 @@ Ease of use of the OP: I have experience with GCP, so it was easier to deploy th
 
 Collaboration: Git and GitHub facilitate collaboration among developers, version tracking, and code review processes.
 
-Ease of use: Git and GitHub are easy to use, making it easier for developers to contribute to the project.
+Ease of use: Git and GitHub are easy to use, making it easier for developers to contribute to the project. It also integrates well with IDEs like WebStorm or VS Code.
 
 Tracking Changes: Git and GitHub allow to track changes to the codebase, making it easier to debug issues and revert changes if needed.
 
